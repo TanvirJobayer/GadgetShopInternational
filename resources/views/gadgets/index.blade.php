@@ -26,15 +26,28 @@
         <tbody>
             @forelse ($gadgets as $gadget)
             <tr>
-                <td>{{$gadgets->id}}</td>
-                <td>{{$gadgets->name}}</td>
-                <td>{{$gadgets->brand}}</td>
-                <td>{{$gadgets->category}}</td>
-                <td>{{$gadgets->price}}</td>
-                <td>{{$gadgets->stock}}</td>
-                <td></td>
+                <td>{{$gadget->id}}</td>
+                <td>{{$gadget->name}}</td>
+                <td>{{$gadget->brand}}</td>
+                <td>{{$gadget->category}}</td>
+                <td>{{$gadget->price}}</td>
+                <td>{{$gadget->stock}}</td>
+                <td style="white-space: nowrap;">
+                    <button onclick="window.location.href='{{route('gadgets.show', $gadget->id)}}'" style="background-color: aquamarine;">View</button>
+                    |
+                    <button onclick="window.location.href='{{route('gadgets.edit', $gadget->id)}}'" style="background-color: cornflowerblue;">Add Gadget</button>
+                    |
+                    <form action="{{route('gadgets.delete', $gadget->id)}}" method="post" style="display: inline;">
+                        @csrf
+                        @method('delete')
+                        <button style="background-color: orangered;">Delete</button>
+                    </form>
+                </td>
             </tr>
             @empty
+            <tr>
+                <td colspan="7" align="center">No Data Found !</td>
+            </tr>
             @endforelse
         </tbody>
     </table>
